@@ -4,8 +4,8 @@ class TimerSessionTest < ActiveSupport::TestCase
   def build_user
     User.create!(
       email: "timer-test-#{SecureRandom.hex(4)}@example.com",
-      password: "password123",
-      password_confirmation: "password123",
+      password: "correct horse battery",
+      password_confirmation: "correct horse battery",
       legal_assent: "1"
     )
   end
