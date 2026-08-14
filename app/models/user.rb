@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   has_many :legal_acceptances, dependent: :destroy
   has_many :identities, dependent: :destroy
+  has_many :timer_sessions, dependent: :destroy
   has_sessions
 
   # Team workspaces (SPEC M4). A personal organization is created right
