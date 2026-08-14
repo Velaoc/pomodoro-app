@@ -1,0 +1,218 @@
+/* Pomodoro timer page — layered on MD3 tokens, no raw hex. */
+
+.timer-page {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timer-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.timer-card {
+  padding: 2rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.timer-card__modes {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.timer-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+}
+
+.timer-mode__label {
+  font-size: 0.875rem;
+  line-height: 1.25;
+}
+
+.timer-mode__dur {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.timer-mode.md-button--selected {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.timer-card__mode-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+.timer-card__time {
+  font-size: clamp(4rem, 18vw, 6.5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--md-sys-color-on-surface);
+}
+
+.timer-card__progress {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-surface-container-highest);
+  overflow: hidden;
+}
+
+.timer-card__progress-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background-color: var(--md-sys-color-primary);
+  transition: width 0.25s linear;
+}
+
+.timer-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.timer-card__primary {
+  min-width: 8rem;
+}
+
+.timer-card__cycle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.timer-card__cycle-label {
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.timer-card__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.timer-card__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--md-sys-color-surface-container-highest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.timer-card__dot--done {
+  background-color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+.timer-card__status {
+  font-size: 0.9rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+  min-height: 1.25rem;
+}
+
+.timer-panel {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+}
+
+.timer-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.timer-panel h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.timer-panel__head h2 {
+  margin: 0;
+}
+
+.timer-panel--guest {
+  text-align: center;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+.timer-panel--guest a {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.timer-panel__empty {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+.timer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.timer-list__item:last-child {
+  border-bottom: none;
+}
+
+.timer-list__kind {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.timer-list__meta {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 599px) {
+  .timer-card {
+    padding: 1.5rem 1rem 1.25rem;
+  }
+}
