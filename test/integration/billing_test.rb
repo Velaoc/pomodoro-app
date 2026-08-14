@@ -159,6 +159,6 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_response :see_other
     assert_redirected_to "https://billing.stripe.test/portal_stub"
     assert_equal @organization, portal_arguments[:organization]
-    assert_equal "https://example.com/billing", portal_arguments[:return_url]
+    assert_equal "https://#{Rails.configuration.x.foundation[:domain]}/billing", portal_arguments[:return_url]
   end
 end
