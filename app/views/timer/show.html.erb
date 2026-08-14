@@ -1,0 +1,71 @@
+<% identity = Rails.configuration.x.foundation %>
+<% title "#{identity[:application_name]} — Pomodoro Timer" %>
+
+<section class="timer-page" aria-labelledby="timer-title">
+  <h1 id="timer-title" class="timer-sr-only"><%= identity[:application_name] %> timer</h1>
+
+  <div class="timer-card md-card md-card--filled"
+       data-controller="timer"
+       data-timer-signed-in-value="<%= user_signed_in? %>"
+       data-timer-record-url-value="<%= timer_record_path %>">
+
+    <div class="timer-card__modes" role="tablist" aria-label="Timer mode">
+      <% [["focus", "Focus", "25 min"], ["short_break", "Short break", "5 min"], ["long_break", "Long break", "15 min"]].each do |mode, label, dur| %>
+        <button type="button" class="md-button md-button--text timer-mode" role="tab"
+                data-mode="<%= mode %>" data-action="timer#selectMode">
+          <span class="timer-mode__label"><%= label %></span>
+          <span class="timer-mode__dur"><%= dur %></span>
+        </button>
+      <% end %>
+    </div>
+
+    <p class="timer-card__mode-name" data-timer-target="modeName">Focus</p>
+
+    <div class="timer-card__time" role="timer" data-timer-target="time">25:00</div>
+
+    <div class="timer-card__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" data-timer-target="progress">
+      <div class="timer-card__progress-fill" data-timer-target="progressFill"></div>
+    </div>
+
+    <div class="timer-card__actions">
+      <button type="button" class="md-button md-button--filled timer-card__primary" data-action="timer#startPause" data-timer-target="startPause">Start</button>
+      <button type="button" class="md-button md-button--outlined" data-action="timer#reset" data-timer-target="reset">Reset</button>
+    </div>
+
+    <div class="timer-card__cycle">
+      <span class="timer-card__cycle-label">Cycle</span>
+      <div class="timer-card__dots" aria-label="Focus sessions completed in this cycle">
+        <% 4.times do |i| %>
+          <span class="timer-card__dot" data-timer-target="cycleDot" data-index="<%= i %>" aria-hidden="true"></span>
+        <% end %>
+      </div>
+    </div>
+
+    <p class="timer-card__status" data-timer-target="status" aria-live="polite">Ready when you are.</p>
+  </div>
+
+  <% if user_signed_in? %>
+    <section class="timer-panel" aria-labelledby="recent-title">
+      <div class="timer-panel__head">
+        <h2 id="recent-title">Recent sessions</h2>
+        <%= link_to "Full history", history_path, class: "md-button md-button--text" %>
+      </div>
+      <% if @recent.any? %>
+        <ul class="timer-list">
+          <% @recent.each do |s| %>
+            <li class="timer-list__item">
+              <span class="timer-list__kind"><%= s.kind.tr("_", " ") %></span>
+              <span class="timer-list__meta"><%= s.duration_minutes %> min &middot; <%= l(s.completed_at, format: "%b %-d, %H:%M") %></span>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="timer-panel__empty">No sessions yet — finish a focus block and it shows up here.</p>
+      <% end %>
+    </section>
+  <% else %>
+    <p class="timer-panel timer-panel--guest">
+      <%= link_to "Sign in", new_user_session_path %> to keep a history of your sessions. The timer works either way.
+    </p>
+  <% end %>
+</section>
