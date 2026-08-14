@@ -137,6 +137,4 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # Minimal landing page until the M7 marketing set replaces it.
-    root "foundation/home#show"
 end
