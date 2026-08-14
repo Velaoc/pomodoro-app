@@ -1,8 +1,17 @@
 require "test_helper"
 
 class TimerSessionTest < ActiveSupport::TestCase
+  def build_user
+    User.create!(
+      email: "timer-test-#{SecureRandom.hex(4)}@example.com",
+      password: "password123",
+      password_confirmation: "password123",
+      legal_assent: "1"
+    )
+  end
+
   test "valid with focus kind and positive duration" do
-    user = users(:one)
+    user = build_user
     session = TimerSession.new(
       user: user,
       kind: "focus",
@@ -14,7 +23,7 @@ class TimerSessionTest < ActiveSupport::TestCase
   end
 
   test "rejects unknown kinds" do
-    user = users(:one)
+    user = build_user
     session = TimerSession.new(
       user: user,
       kind: "nap",
@@ -26,7 +35,7 @@ class TimerSessionTest < ActiveSupport::TestCase
   end
 
   test "focus_minutes_on sums focus minutes for a day" do
-    user = users(:one)
+    user = build_user
     day = Date.current
 
     TimerSession.create!(
