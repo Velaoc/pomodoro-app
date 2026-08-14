@@ -40,7 +40,7 @@ class Foundation::ProductSurfaceTest < ActiveSupport::TestCase
     assert surface.feature?(:billing)
   end
 
-  test "default config resolves platform" do
-    assert_equal "platform", Foundation.product_surface.name
+  test "default config resolves consumer" do
+    assert_equal "consumer", Foundation.product_surface.name
   end
 end
