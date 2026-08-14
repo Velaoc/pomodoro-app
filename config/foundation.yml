@@ -43,7 +43,7 @@ shared:
   # only appear when they belong to the app being built.
   # Profiles: platform | commerce | workspace | consumer
   # See docs/PRODUCT_SURFACE.md.
-  product_surface: platform
+  product_surface: consumer
 
   # Optional boolean overrides on top of the profile (feature name → true/false).
   # Example: { billing: true } on a commerce surface.
