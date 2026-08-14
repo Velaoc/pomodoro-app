@@ -130,6 +130,9 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # Minimal landing page until the M7 marketing set replaces it.
-    root "foundation/home#show"
+  # The Pomodoro timer is the product: public root works for guests, and
+  # signed-in users get persisted history.
+  root "timer#show"
+  get  "history", to: "timer#history", as: :history
+  post "timer/record", to: "timer#record", as: :timer_record
 end
