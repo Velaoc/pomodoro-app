@@ -3,6 +3,12 @@ require "test_helper"
 # The Pomodoro timer is the product and the public root. Guests get the full
 # timer with no account; signing in adds persisted session history.
 class HomePageTest < ActionDispatch::IntegrationTest
+  PASSWORD = "correct horse battery" # matches test/fixtures/users.yml
+
+  def sign_in_as(user, password: PASSWORD)
+    post user_session_path, params: { user: { email: user.email, password: password } }
+  end
+
   test "root serves the Pomodoro timer to guests" do
     get root_path
 
@@ -16,7 +22,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "root serves the timer with history to signed-in users" do
-    sign_in users(:confirmed)
+    sign_in_as users(:confirmed)
 
     get root_path
 
@@ -37,7 +43,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       user: user, kind: "focus", duration_minutes: 25,
       started_at: 25.minutes.ago, completed_at: Time.current
     )
-    sign_in user
+    sign_in_as user
 
     get history_path
 
