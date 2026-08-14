@@ -85,6 +85,13 @@ Rails.application.routes.draw do
 
 
 
+  # The Pomodoro timer is the product: public root works for guests, and
+  # signed-in users get persisted history. Declared above the engine mount
+  # like every application-owned path.
+  root "timer#show"
+  get  "history", to: "timer#history", as: :history
+  post "timer/record", to: "timer#record", as: :timer_record
+
   # Team workspaces: organizations, members, switching, and invitations
   # (SPEC M4) — the organizations gem's engine, mounted at the root. All
   # application-owned paths stay above this catch-all mount.
@@ -130,9 +137,6 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # The Pomodoro timer is the product: public root works for guests, and
-  # signed-in users get persisted history.
-  root "timer#show"
-  get  "history", to: "timer#history", as: :history
-  post "timer/record", to: "timer#record", as: :timer_record
+  # Minimal landing page until the M7 marketing set replaces it.
+    root "foundation/home#show"
 end
