@@ -1,0 +1,38 @@
+<% identity = Rails.configuration.x.foundation %>
+<% title "Session history — #{identity[:application_name]}" %>
+
+<section class="timer-page" aria-labelledby="history-title">
+  <h1 id="history-title" class="timer-sr-only">Session history</h1>
+
+  <% if @focus_minutes_by_day.any? %>
+    <section class="timer-panel" aria-labelledby="totals-title">
+      <h2 id="totals-title">Focus minutes</h2>
+      <ul class="timer-list">
+        <% @focus_minutes_by_day.sort.reverse.first(14).each do |day, minutes| %>
+          <li class="timer-list__item">
+            <span class="timer-list__kind"><%= l(day, format: "%A, %B %-d") %></span>
+            <span class="timer-list__meta"><%= pluralize(minutes, "minute") %> focused</span>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <section class="timer-panel" aria-labelledby="all-title">
+    <h2 id="all-title">All sessions</h2>
+    <% if @sessions.any? %>
+      <ul class="timer-list">
+        <% @sessions.first(50).each do |s| %>
+          <li class="timer-list__item">
+            <span class="timer-list__kind"><%= s.kind.tr("_", " ") %></span>
+            <span class="timer-list__meta"><%= s.duration_minutes %> min &middot; <%= l(s.completed_at, format: "%b %-d, %H:%M") %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="timer-panel__empty">Nothing here yet. Run a focus session and it lands in your history.</p>
+    <% end %>
+  </section>
+
+  <p><%= link_to "Back to the timer", root_path, class: "md-button md-button--filled" %></p>
+</section>
