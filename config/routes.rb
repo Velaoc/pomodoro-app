@@ -135,5 +135,4 @@ Rails.application.routes.draw do
     get "auth", to: "auth#show", as: :auth
     get "session", to: "sessions#show", as: :session
   end
-
 end
