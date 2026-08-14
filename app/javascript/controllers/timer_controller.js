@@ -38,15 +38,16 @@ export default class extends Controller {
   }
 
   startPause() {
-    this.running = !this.running
-    if (this.running) {
-      this.startedAt = this.startedAt ?? Date.now()
-      this.saveState()
+    if (!this.running) {
+      this.startedAt = Date.now()
+      this.running = true
       this.startTick()
     } else {
-      this.saveState()
+      this.freezeRemaining()
+      this.running = false
       this.stopTick()
     }
+    this.saveState()
     this.render()
   }
 
@@ -56,6 +57,12 @@ export default class extends Controller {
     this.remaining = this.modeMinutes() * 60
     this.saveState()
     this.render()
+  }
+
+  freezeRemaining() {
+    if (!this.startedAt) return
+    this.remaining = Math.max(0, this.modeMinutes() * 60 - Math.floor((Date.now() - this.startedAt) / 1000))
+    this.startedAt = null
   }
 
   startTick() {
@@ -71,13 +78,9 @@ export default class extends Controller {
   }
 
   tick() {
-    if (!this.running) return
-    if (this.startedAt) {
-      const elapsed = Math.floor((Date.now() - this.startedAt) / 1000)
-      this.remaining = Math.max(0, this.modeMinutes() * 60 - elapsed)
-    } else {
-      this.remaining -= 0.25
-    }
+    if (!this.running || !this.startedAt) return
+    const elapsed = Math.floor((Date.now() - this.startedAt) / 1000)
+    this.remaining = Math.max(0, this.modeMinutes() * 60 - elapsed)
     if (this.remaining <= 0) {
       this.complete()
     }
