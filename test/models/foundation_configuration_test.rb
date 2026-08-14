@@ -41,9 +41,9 @@ class FoundationConfigurationTest < ActiveSupport::TestCase
   test "foundation config template defaults" do
     foundation = Rails.configuration.x.foundation
 
-    assert_equal "Application", foundation[:application_name]
+    assert_equal "Pomodoro", foundation[:application_name]
     assert_match(/\A#\h{6}\z/, foundation[:brand_seed_color])
-    assert_equal "platform", foundation[:product_surface]
+    assert_equal "consumer", foundation[:product_surface]
     assert_equal "material", foundation[:design_skin]
     assert_equal false, foundation.dig(:rarebox_data, :enabled)
     assert_equal 90, foundation[:healthcheck_disk_usage_percent_max]
