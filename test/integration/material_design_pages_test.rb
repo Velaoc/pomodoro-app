@@ -38,7 +38,7 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
     assert_select "header.md-top-app-bar"
     assert_select "a.md-wordmark .md-wordmark__name", text: Rails.configuration.x.foundation[:application_name]
     assert_select "body.md-app.design-skin--material"
-    assert_select "body[data-product-surface=platform]"
+    assert_select "body[data-product-surface=consumer]"
     assert_select "body[data-design-skin=material]"
   end
 
