@@ -1,0 +1,30 @@
+{
+  "name": "Pomodoro",
+  "purpose": "A focused Pomodoro timer app: 25-minute focus sessions alternating with 5-minute short breaks and a 15-minute long break every four sessions, with a session history for signed-in users.",
+  "actors": [
+    "Guest (uses the timer without an account)",
+    "Signed-in user (timer plus persisted session history)"
+  ],
+  "entities": [
+    {
+      "name": "TimerSession",
+      "relationships": [
+        "belongs_to user (optional — guests' sessions are not persisted)",
+        "records kind (focus|short_break|long_break), duration_minutes, started_at, completed_at"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Run a focus cycle",
+      "description": "Start/pause/reset the countdown; timer auto-advances focus to short break to focus, and to a long break every four sessions, beeping on completion; completed sessions are saved for signed-in users."
+    },
+    {
+      "name": "Review history",
+      "description": "Signed-in user browses completed sessions with per-day focus totals."
+    }
+  ],
+  "modules": [],
+  "integrations": [],
+  "seed_demo": "A demo user with several completed focus/break sessions spread over recent days so the history view and day totals show real data."
+}
