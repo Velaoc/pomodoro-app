@@ -24,8 +24,8 @@ class TimerController < ApplicationController
   def record
     return head(:no_content) unless user_signed_in?
 
-    kind = params[:kind]
-    duration = params[:duration_minutes].to_i
+    kind = record_params[:kind]
+    duration = record_params[:duration_minutes].to_i
 
     if TimerSession::KINDS.include?(kind) && duration.positive?
       now = Time.current
@@ -40,5 +40,11 @@ class TimerController < ApplicationController
     else
       head :unprocessable_entity
     end
+  end
+
+  private
+
+  def record_params
+    params.permit(:kind, :duration_minutes)
   end
 end
