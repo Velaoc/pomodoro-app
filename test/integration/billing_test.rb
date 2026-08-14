@@ -104,8 +104,8 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "https://checkout.stripe.test/session_stub"
     assert_equal @organization, captured[:organization]
     assert_equal "price_pro_yearly", captured[:price_id]
-    assert_equal "https://example.com/billing?checkout=success", captured[:success_url]
-    assert_equal "https://example.com/pricing?interval=year", captured[:cancel_url]
+    assert_equal "https://#{Rails.configuration.x.foundation[:domain]}/billing?checkout=success", captured[:success_url]
+    assert_equal "https://#{Rails.configuration.x.foundation[:domain]}/pricing?interval=year", captured[:cancel_url]
     assert_no_match(/attacker\.invalid/, captured.values.join(" "))
   end
 
