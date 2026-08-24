@@ -1,6 +1,6 @@
+# The Pomodoro timer is the product and the public root: guests can run it
+# with no account. Signing in adds persisted history (see #history).
 class TimerController < ApplicationController
-  # The Pomodoro timer is the product and the public root: guests can run it
-  # with no account. Signing in adds persisted history (see #history).
   def show
     @recent = if user_signed_in?
       TimerSession.for_user(current_user).chronological.limit(10)
