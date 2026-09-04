@@ -92,7 +92,7 @@ gem "organizations"
 # pricing_plans resolves plan access; profitable reads Pay's local records.
 gem "pay", "~> 11.7"
 gem "stripe", "~> 19.0"
-gem "pricing_plans", "~> 0.4"
+gem "pricing_plans", "~> 0.6"
 gem "profitable", "~> 0.6"
 
 # Foundation: operator-only administration, per-device session tracking, and
